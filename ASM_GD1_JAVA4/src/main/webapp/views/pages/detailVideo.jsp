@@ -8,79 +8,71 @@
 <link rel="stylesheet" type="text/css" href="../static/css/styleht.css">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<style>
+.sameVideo {
+	margin-bottom: 10px;
+}
+</style>
 <section class="detailProduct" style="margin-top: -80px">
 	<div class="container">
 		<div class="detailP">
 			<div class="row">
-				<div class="col-md-8">
+				<div class="col-md-9">
 					<iframe width="100%" height="500px"
 						src="https://www.youtube.com/embed/${Video.id}"
 						title="YouTube video player" frameborder="0"
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 						allowfullscreen></iframe>
 				</div>
-				<div class="col-md-4">
-					<h1>
-						<span style="font-weight: 100">Tên :</span> ${Video.title}
-					</h1>
-					<h2>
-						<span style="color: #85c94f">Lượt xem: ${Video.views+1}</span>
-					</h2>
-					<p><strong>Mô tả:</strong> <br> ${Video.description}</p>
-					<hr />
+				<div class="col-md-3">
 
+					<c:forEach items="${video}" var="item">
+						<a class="nav-link"
+							href="http://localhost:8080/ASM_GD1_JAVA4/video/detail?id=${item.id}">
+							<div class="row" style="margin-bottom: 10px;">
 
-					<a href="http://localhost:8080/CRUDASM/favorite/like?id=${Video.id}" class="tym"><i style="color:#e1536b;" class="far fa-heart"></i></a> 
-									<a href="http://localhost:8080/CRUDASM/favorite/hate?id=${Video.id}" class="tym"><i class="far fa-heart"></i></a> 
-					 <a href="#"
-						class="share"><i class="fas fa-share"></i></a> <br> Contact
-					<hr />
-					<div class="contactdetail">
-						<ul class="nav justify-content-left">
-							<a class="nav-link"
-								href="#"><i
-								class="fab fa-facebook"></i></a>
-							<a class="nav-link" href="#"><i
-								class="fab fa-instagram"></i></a>
-							<a class="nav-link"
-								href="#"><i
-								class="fab fa-youtube"></i></a>
-							<a class="nav-link" href="#"><i
-								class="fab fa-github"></i></a>
-						</ul>
-					</div>
+								<div class="col-8">
+									<div class="image-container">
+										<img src="/ASM_GD1_JAVA4/static/image/${item.poster}"
+											class="card-img-top" alt="..."
+											style="width: 200px; height: 115px;border-radius:10px;" />
+									</div>
+								</div>
+								<div class="col-4">
+									<p style="font-weight: bold;">${item.title}</p>
+
+									<p style="font-size: 12px">Lượt xem: ${item.views}</p>
+
+								</div>
+
+							</div>
+						</a>
+					</c:forEach>
+
 				</div>
 			</div>
 		</div>
-		<div class="sameProduct">
-			<div class="nTab">
-				<div class="row">
-					<div class="col-6">
-						<h3>Product Recommendations</h3>
-					</div>
-					<div class="col-6">
-						<ul class="nav justify-content-end">
-							<li class="nav-item"><a class="nav-link active" href="#shop"
-								style="border: none"><i class="far fa-eye"></i> View more</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
+		<div>
+
 			<div>
-				<div class="row">
-					<c:forEach items="${video}" var="item">
-						<div class="col-lg-3">
-							
-								<div class="image-container">
-									<img src="/CRUDASM/static/image/${item.poster}"
-										class="card-img-top" alt="..." />
-									<div class="caption">
-										<a class="nav-link" href="http://localhost:8080/ASM_GD1_JAVA4/video/detail?id=${item.id}">${item.title}</a>
-									</div>
-								</div>
-							</div>
-					</c:forEach>
-				</div>
+				<h1>
+					<span style="font-weight: 100">Tên :</span> ${Video.title}
+				</h1>
+				<h2>
+					<span style="color: #85c94f">Lượt xem: ${Video.views+1}</span>
+				</h2>
+
+
+
+
+				<a href="http://localhost:8080/CRUDASM/favorite/like?id=${Video.id}"
+					class="btn btn-success">Like</a> <a
+					href="http://localhost:8080/CRUDASM/favorite/hate?id=${Video.id}"
+					class="btn btn-info">Share</a>
+				<hr />
+				<p>
+					<strong>Mô tả:</strong> <br> ${Video.description}
+				</p>
 			</div>
 		</div>
 	</div>

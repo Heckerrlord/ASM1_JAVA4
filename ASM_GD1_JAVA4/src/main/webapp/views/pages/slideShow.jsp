@@ -10,21 +10,21 @@
       <div class="carousel-inner">
         <div class="carousel-item active" data-bs-interval="10000">
           <img
-            src="/CRUDASM/static/image/imgslide/image6.png"
+            src="/ASM_GD1_JAVA4/static/image/imgslide/image6.png"
             class="d-block w-100"
             alt="..."
           />
         </div>
         <div class="carousel-item" data-bs-interval="2000">
           <img
-            src="/CRUDASM/static/image/imgslide/image7.png"
+            src="/ASM_GD1_JAVA4/static/image/imgslide/image7.png"
             class="d-block w-100"
             alt="..."
           />
         </div>
         <div class="carousel-item">
           <img
-            src="/CRUDASM/static/image/imgslide/image8.png"
+            src="/ASM_GD1_JAVA4/static/image/imgslide/image8.png"
             class="d-block w-100"
             alt="..."
           />

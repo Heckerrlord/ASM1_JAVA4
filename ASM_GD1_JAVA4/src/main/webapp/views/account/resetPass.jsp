@@ -13,7 +13,7 @@
 				<input type="email" style="width: 100%" class="form-control" id="email" name="email" required>
 			</div>
 			<input name="admin"  type="hidden" value="false">
-			<button type="submit" formaction="http://localhost:8080/CRUDASM/user/resetpass" class="btn btn-primary btn-block btn-submit mt-4">Quên mật khẩu</button>
+			<button type="submit" formaction="http://localhost:8080/ASM_GD1_JAVA4/user/resetpass" class="btn btn-primary btn-block btn-submit mt-4">Quên mật khẩu</button>
 		</form></div>
 		<div class="col-4"></div>
 		</div>

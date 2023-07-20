@@ -2,6 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<link rel="stylesheet" href="/ASM_GD1_JAVA4/static/css/allstyle.css">
 <style>
 .hover:hover {
 	text-decoration: underline;
@@ -19,6 +20,18 @@
 
 .show-password {
 	width: 100%;
+}
+
+.form-control {
+	border: 1px solid #dee2e6;
+	box-shadow: none;
+	color: #333;
+	padding: 0.54688rem 0.875rem;
+	font-size: .875rem;
+	height: calc(1.6em + 1.21875rem);
+	line-height: 1.6;
+	font-weight: 400;
+	color: #1e2022;
 }
 </style>
 <div class="container">
@@ -48,16 +61,13 @@
 						<div class="form-group">
 							<label for="password">Nhập lại:</label>
 							<div class="row">
-								<div class="col-10">
-									<input style="width: 100%" type="password" class="form-control"
-										id="password2" name="password2" required>
-								</div>
-								<div class="col-2">
-									<button class="show-password btn btn-secondary" type="button"
-										onclick="togglePassword()">Show</button>
-								</div>
+								<input style="width: 100%" type="password" class="form-control"
+									id="password2" name="password2" required>
 							</div>
+							
 						</div>
+						<button class="show-password btn btn-secondary" type="button"
+								onclick="togglePassword()">Show</button>
 						<button type="submit"
 							formaction="http://localhost:8080/ASM_GD1_JAVA4/user/changepass"
 							class="btn btn-primary btn-block mt-4">Đổi mật khẩu</button>
@@ -89,21 +99,21 @@
 				<form method="post"
 					action="http://localhost:8080/ASM_GD1_JAVA4/user/login">
 					<div class="form-group">
-						<label for="username">Tên đăng nhập</label> <input type="text"
-							class="form-control" id="username" style="width: 100%" name="username" required>
+						<label for="username">Tên đăng nhập</label> <input
+							class="form-control" id="username" style="width: 100%"
+							name="username" required>
 					</div>
 					<div class="form-group">
 						<label for="password">Mật khẩu</label>
 						<div class="input-group">
 							<input type="password" class="form-control" id="password"
 								name="password" required>
-							<div class="input-group-append">
-								<button class="show-password btn btn-secondary" type="button"
-									onclick="togglePassword()">Hiện</button>
-							</div>
+						
 						</div>
+						<button class="show-password btn btn-secondary" type="button"
+									onclick="togglePassword()" style="width: 80px">Hiện</button>
 					</div>
-					<button type="submit" class="btn btn-primary btn-block mt-4">Đăng
+					<button type="submit" class="btn btn-primary btn-block mt-4" >Đăng
 						nhập</button>
 					<div class="d-flex justify-content-between mt-3">
 						<a href="http://localhost:8080/ASM_GD1_JAVA4/user/sign-up">Tạo
@@ -125,9 +135,9 @@
 		var passwordField1 = document.getElementById("password1");
 		var passwordField2 = document.getElementById("password2");
 		if (passwordField.type === "password") {
-			passwordField.type = "text";
-			passwordField1.type = "text";
-			passwordField2.type = "text";
+			passwordField.type = "";
+			passwordField1.type = "";
+			passwordField2.type = "";
 		} else {
 			passwordField.type = "password";
 			passwordField1.type = "password";

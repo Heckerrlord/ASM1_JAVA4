@@ -10,7 +10,7 @@
 		<div class="col-4">	<form method="post">
 			<div class="form-group">
 				<label for="id">Username</label>
-				<input type="text"style="width: 100%" class="form-control" id="id" name="id" required>
+				<input style="width: 100%" class="form-control" id="id" name="id" required>
 			</div>
 			<div class="form-group">
 				<label for="password">Password</label>
@@ -18,7 +18,7 @@
 			</div>
 			<div class="form-group">
 				<label for="fullname">Fullname</label>
-				<input type="text" style="width: 100%" class="form-control" id="fullname" name="fullname" required>
+				<input  style="width: 100%" class="form-control" id="fullname" name="fullname" required>
 			</div>
 			<div class="form-group">
 				<label for="email">Email</label>

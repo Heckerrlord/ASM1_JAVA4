@@ -2,76 +2,114 @@ package servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import constant.SessionLG;
+
+import dao.DAO_Video;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+import models.Favorite;
+import models.Users;
 import models.Video;
 
-@WebServlet({ "/index", "/video/detail","/favorite/home" })
+@WebServlet({ "/index","/share","/find", "/favorite/home", "/video/detail", "/favorite/like", "/favorite/hate","/video/home" })
 public class homeServlet extends HttpServlet {
-	// Create a list of Video objects
-	private List<Video> videoList;
-
+	
+	public static final int VIDEO_MAX_PAGE_SIZE = 4;
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String uri = req.getRequestURI();
-		if (uri.contains("index")) {
-			// Call the fillAll method to populate the request attribute with videoList
-			fillAll(req);
+		HttpSession session = req.getSession();
+		 if (uri.contains("/video/detail")) {
+			detail(req, resp);
+			req.setAttribute("view", "/views/pages/detailVideo.jsp");
+		} else if (uri.contains("/video/home")) {
+			Allvideo(req, resp);
+			req.setAttribute("view", "/views/pages/allVideo.jsp");
+		} else {
+			findAll(req, resp);
 			req.setAttribute("view", "/views/pages/home.jsp");
-		} else if (uri.contains("video/detail")) {
-			detail(req);
-
-		}else if(uri.contains("favorite/home")) {
-			req.setAttribute("view", "/views/pages/favorite.jsp");
 		}
+
 		req.getRequestDispatcher("/views/index.jsp").forward(req, resp);
 	}
 
-	@Override
-	public void init() throws ServletException {
-		super.init();
-
-		videoList = new ArrayList<>();
-		videoList.add(
-				new Video("qtb-nN3xiT4", "Binh đoàn người sắt", "binhdoannguoisat.jpg", 100, "Description 1", true));
-		videoList.add(
-				new Video("qtb-nN3xiT4", "Hiệp sĩ không gian", "hiepsikhonggian.jpg", 200, "Description 2", false));
-		videoList.add(new Video("j65Sm4aJ5iI", "Xứ sở người cá", "susonguoica.jpg", 300, "Description 3", true));
-		videoList.add(new Video("EYyVPVHnjiU", "Thám hiểm vùng đất mới", "chuyenlamhiemvungdatmoi.jpg", 300,
-				"Description 4", true));
-	}
-
-	private Video getVideoById(String id) {
-		for (Video video : videoList) {
-			if (video.getId().equals(id)) {
-				return video;
-			}
+	private void findAll(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		try {
+			DAO_Video dao = new DAO_Video();
+			List<Video> list = dao.findIndex();
+			System.out.println(list.size());
+			req.setAttribute("videoList", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+			req.setAttribute("bug", "bug rooif");
+			System.out.println("casasda");
 		}
-		return null;
 	}
-
-	// A method to fill the request attribute with videoList
-	private void fillAll(HttpServletRequest req) {
-		req.setAttribute("videoList", videoList);
-	}
-
-	private void detail(HttpServletRequest req) {
-		String videoId = req.getParameter("id");
-		Video selectedVideo = getVideoById(videoId);
-		if (selectedVideo != null) {
-
-			req.setAttribute("view", "/views/pages/detailVideo.jsp");
-		} else {
-			// Handle case when video is not found
-			req.setAttribute("errorMessage", "Video not found.");
-			req.setAttribute("view", "/views/pages/error.jsp");
+	private void Allvideo(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		try {
+			DAO_Video dao = new DAO_Video();
+			List<Video> list = dao.findAll();
+			req.setAttribute("videoList", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+			req.setAttribute("bug", "bug rooif");
+			System.out.println("casasda");
 		}
-		req.setAttribute("video", videoList);
-		req.setAttribute("Video", selectedVideo);
 	}
+	private void detail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		try {
+			DAO_Video dao = new DAO_Video();
+			Video video = dao.findBYID(req.getParameter("id"));
+			req.setAttribute("Video", video);
+			
+			findRamdom4(req, resp);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+	}
+	private void findRamdom4(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		try {
+			DAO_Video dao = new DAO_Video();
+			List<Video> list = dao.fillRamdom4();
+			req.setAttribute("video", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+			req.setAttribute("bug", "bug rooif");
+			System.out.println("casasda");
+		}
+	}
+	
+//	private void doShare(HttpSession session, HttpServletRequest req, HttpServletResponse resp)
+//			throws ServletException, IOException {
+//		try {
+//			DAO_Video daovd = new DAO_Video();
+//			TK user = (TK) session.getAttribute(SessionLG.CURRENT_USER);
+//			Video video = daovd.findBYID(req.getParameter("id"));
+//			SHARE s = new SHARE();
+//			Date date = new Date();
+//			s.setUserShare(user);
+//			s.setVideoShare(video);
+//			s.setEmails(req.getParameter("friend_email"));
+//			s.setShareDate(date);
+//			daovd.share(s);
+////
+//			findAll(req, resp);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//	}
+	
+	
+	
+	
 }
